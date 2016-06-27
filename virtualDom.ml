@@ -14,6 +14,11 @@ let node tag property children =
   let argList = toList3 tag property children
   in
   callFun "_elm_lang$virtual_dom$Native_VirtualDom.node" argList
+
+let map f node =
+  let argList = toList2 f node
+  in
+  callFun "_elm_lang$virtual_dom$Native_VirtualDom.map" argList
 	  
 (* properties and attributes *)
 let property key value =

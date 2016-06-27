@@ -1,3 +1,4 @@
+open Decode 
 open Platform
 (* nodes *)
 
@@ -9,6 +10,8 @@ val node : string -> 'msg property list -> 'msg node list -> 'msg node
 								  
 val text : string -> 'msg node
 
+val map : ('a -> 'msg) -> 'a node -> 'msg node
+			  
 (* properties and attributes*)
 
 val property : string -> value -> 'msg property
