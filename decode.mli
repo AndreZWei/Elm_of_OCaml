@@ -1,12 +1,7 @@
+type 'msg cmd
 
+type 'msg sub
 
-    type 'a cmd
+type 'a decoder
 
-    type 'a sub
-
-    type 'a program
-
-    type 'a decoder
-
-    type value
-	   
+type value
