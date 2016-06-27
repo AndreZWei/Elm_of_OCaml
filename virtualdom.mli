@@ -1,4 +1,4 @@
-open Decode
+open Platform
 (* nodes *)
 
 type 'msg node
