@@ -1,4 +1,3 @@
-//Requires: JSON
 function F2(fun)
 {
   function wrapper(a) { return function(b) { return fun(a,b); }; }
@@ -5548,7 +5547,6 @@ var _elm_lang$core$Json_Decode$dict = function (decoder) {
 		_elm_lang$core$Json_Decode$keyValuePairs(decoder));
 };
 var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
-//import Native.Json //
 
 var _elm_lang$virtual_dom$Native_VirtualDom = function() {
 
