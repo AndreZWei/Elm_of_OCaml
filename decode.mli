@@ -1,6 +1,6 @@
 type 'a decoder
 
-type value
+type value = Encode.value
 
 val jsonstring : string decoder
 

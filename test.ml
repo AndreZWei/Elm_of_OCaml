@@ -1,5 +1,4 @@
 open VirtualDom
-open Platform
 open Wrapper
 
 type msg = Increment | Decrement

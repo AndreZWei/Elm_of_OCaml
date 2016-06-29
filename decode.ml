@@ -2,7 +2,7 @@ open Utils
 
 type 'a decoder = Decoder
 
-type value = Value
+type value = Encode.value
 
 let decodePrimitive tag =
   let argList = toList tag
