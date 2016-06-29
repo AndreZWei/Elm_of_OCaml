@@ -1,7 +1,16 @@
+open Utils
+
 type 'a decoder = Decoder
 
 type value = Value
 
-type 'msg cmd = Cmd
+let decodePrimitive tag =
+  let argList = toList tag
+  in
+  callFun "_elm_lang$core$Native_Json.decodePrimitive" argList
+	       
+let jsonstring = 
+  decodePrimitive "string"
 
-type 'msg sub = Sub
+let jsonbool =
+  decodePrimitive "bool"

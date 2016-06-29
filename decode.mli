@@ -1,11 +1,7 @@
-type 'msg cmd
-
-type 'msg sub
-
 type 'a decoder
 
 type value
 
-val jsonstring: string -> value
+val jsonstring : string decoder
 
-val jsonbool: bool -> value 
+val jsonbool : bool decoder
