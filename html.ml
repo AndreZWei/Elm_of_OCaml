@@ -2,6 +2,7 @@
 
 open VirtualDom
 open Decode
+open Platform
 
 type 'msg html = 'msg VirtualDom.node
 
@@ -141,34 +142,37 @@ module App = struct
 	;   update: 'msg -> 'model -> 'model
 	}
 
-	type ('flags, 'model, 'msg) pgm = {
-		init: ('model * 'msg Decode.cmd)
-	;	update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
-	;   subscriptions: 'model -> 'msg Decode.sub
+	type ('model, 'msg) pgm = {
+		init: ('model * Cmd.msg)
+	;	update: 'msg -> 'model -> ('model * Cmd.msg)
+	;   subscriptions: 'model -> Sub.msg
 	;   view: 'model -> 'msg html
 	}
 	
-	type ('flags, 'msg, 'model) pgmwithFlags = {
-		init: 'flags -> ('model * 'msg Decode.cmd)
-	;   update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
-	;   subscriptions: 'model -> 'msg Decode.sub
-	;   view: 'model -> 'msg html
-	}
+	type ('flags, 'msg, 'model) pgmwithFlags = 
+	('flags, 'msg, 'model) VirtualDom.pgm
 
 	let map = VirtualDom.map
 
+	let programWithFlags (pgmwithFlags : ('flags, 'msg, 'model) pgmwithFlags) 
+	 = VirtualDom.programWithFlags pgmwithFlags
+
 	let beginnerProgram beginnerpgm  = 
 		programWithFlags 
-			{ init = (fun () -> (beginnerpgm.model, Cmd.none)) 
+			{ init = (fun never -> (beginnerpgm.model, Cmd.none)) 
 			; update = (fun msg model -> (beginnerpgm.update msg model, Cmd.none))  
-			; view = view 
-			; subscriptions = (fun () -> Sub.none)
+			; view = beginnerpgm.view 
+			; subscriptions = (fun never -> Sub.none)
 			}
 
-	let program pgm =
-		programwithFlags { pgm with init = (fun () -> pgm.init) }
+	let program (pgm : ('model, 'msg) pgm) =
+		programWithFlags 
+			{ init = (fun never -> pgm.init) 
+			; update = (fun msg model -> pgm.update msg model)  
+			; view = pgm.view 
+			; subscriptions = (fun never -> Sub.none)
+			}
 
-	let programWithFlags = VirtualDom.programWithFlags
 
 
 
@@ -309,7 +313,7 @@ let src value = stringProperty "src" value
 
 (* Declare the height of a `canvas`, `embed`, `iframe`, `img`, `input`,
 `object`, or `video`. *)
-let width value = stringProperty "width" (string_of_int value)
+let height value = stringProperty "height" (string_of_int value)
 
 (* Declare the width of a `canvas`, `embed`, `iframe`, `img`, `input`,
 `object`, or `video`. *)
@@ -446,7 +450,203 @@ let minlength n = stringProperty "minlength" (string_of_int n)
 `textarea` *)
 let maxlength n = stringProperty "maxlength" (string_of_int n)
 
-(* *)
+(* Defines which HTTP method to use when submitting a `form`. Can be GET
+(default) or POST. *)
+let method' value = stringProperty "method" value
+
+(* Indicates whether multiple values can be entered in an `input` of type
+email or file. Can also indicate that you can `select` many options. *)
+let multiple boo = boolProperty "multiple" boo
+
+(* Name of the element. For example used by the server to identify the fields
+in form submits. For `button`, `form`, `fieldset`, `iframe`, `input`, `keygen`,
+`object`, `output`, `select`, `textarea`, `map`, `meta`, and `param`. *)
+let name value = stringProperty "name" value
+
+(* This attribute indicates that a `form` shouldn't be validated when
+submitted. *)
+let novalidate boo = boolProperty "noValidate" boo
+
+(* Defines a regular expression which an `input`'s value will be validated
+against. *)
+let pattern value = stringProperty "pattern" value
+
+(* Indicates whether an `input` or `textarea` can be edited. *)
+let readonly boo = boolProperty "readOnly" boo
+
+(* Indicates whether this element is required to fill out or not.
+For `input`, `select`, and `textarea`. *)
+let required boo = boolProperty "required" boo
+
+(* For `input` specifies the width of an input in characters.
+
+For `select` specifies the number of visible options in a drop-down list. *)
+let size n = stringProperty "size" (string_of_int n)
+
+(* The element ID described by this `label` or the element IDs that are used
+for an `output`. *)
+let for' value = stringProperty "htmlFor" value
+
+(* Indicates the element ID of the `form` that owns this particular `button`,
+`fieldset`, `input`, `keygen`, `label`, `meter`, `object`, `output`,
+`progress`, `select`, or `textarea`. *)
+let form value = stringProperty "form" value
+
+
+(* Ranges *)
+
+(* Indicates the maximum value allowed. When using an input of type number or
+date, the max value must be a number or date. For `input`, `meter`, and `progress`. *)
+let max value = stringProperty "max" value
+
+(* Indicates the minimum value allowed. When using an input of type number or
+date, the min value must be a number or date. For `input` and `meter`. *)
+let min value = stringProperty "min" value
+
+(* Add a step size to an `input`. Use `step "any"` to allow any floating-point
+number to be used in the input. *)
+let step n = stringProperty "step" n
+
+(* Defines the number of columns in a `textarea`. *)
+let cols n = stringProperty "cols" (string_of_int n)
+
+(* Defines the number of rows in a `textarea`. *)
+let rows n = stringProperty "rows" (string_of_int n)
+
+(* Indicates whether the text should be wrapped in a `textarea`. Possible
+values are "hard" and "soft". *)
+let wrap value = stringProperty "wrap" value
+
+
+(* Maps *)
+
+(* When an `img` is a descendent of an `a` tag, the `ismap` attribute
+indicates that the click location should be added to the parent `a`'s href as
+a query string. *)
+let ismap value = boolProperty "isMap" value
+
+(* Specify the hash name reference of a `map` that should be used for an `img`
+or `object`. A hash name reference is a hash symbol followed by the element's name or id.
+E.g. `"#planet-map"`. *)
+let usemap value = stringProperty "usemap" value
+
+(* Declare the shape of the clickable area in an `a` or `area`. Valid values
+include: default, rect, circle, poly. This attribute can be paired with
+`coords` to create more particular shapes. *)
+let shape value = stringProperty "shape" value
+
+(* A set of values specifying the coordinates of the hot-spot region in an
+`area`. Needs to be paired with a `shape` attribute to be meaningful. *)
+let coords value = stringProperty "coords" value
+
+
+(* Key Gen *)
+
+(* A challenge string that is submitted along with the public key in a `keygen`. *)
+let challenge value = stringProperty "challenge" value
+
+(* Specifies the type of key generated by a `keygen`. Possible values are:
+rsa, dsa, and ec. *)
+let keytype value = stringProperty "keytype" value
+
+
+(* Real Stuff *)
+
+(* Specifies the horizontal alignment of a `caption`, `col`, `colgroup`,
+`hr`, `iframe`, `img`, `table`, `tbody`,  `td`,  `tfoot`, `th`, `thead`, or
+`tr`. *)
+let align value = stringProperty "align" value
+
+(* Contains a URI which points to the source of the quote or change in a
+`blockquote`, `del`, `ins`, or `q`. *)
+let cite value = stringProperty "cite" value
+
+
+
+(* Links and Areas *)
+
+(* The URL of a linked resource, such as `a`, `area`, `base`, or `link`. *)
+let href value = stringProperty "href" value
+
+(* Specify where the results of clicking an `a`, `area`, `base`, or `form`
+should appear. Possible special values include:
+
+  * _blank &mdash; a new window or tab
+  * _self &mdash; the same frame (this is default)
+  * _parent &mdash; the parent frame
+  * _top &mdash; the full body of the window
+
+You can also give the name of any `frame` you have created. *)
+let target value = stringProperty "target" value
+
+(* Indicates that clicking an `a` and `area` will download the resource
+directly. *)
+let download boo = boolProperty "download" boo
+
+(* Indicates that clicking an `a` and `area` will download the resource
+directly, and that the downloaded resource with have the given filename. *)
+let downloadAs value = stringProperty "download" value
+
+(* Two-letter language code of the linked resource of an `a`, `area`, or `link`. *)
+let hreflang value = stringProperty "hreflang" value
+
+(* Specifies a hint of the target media of a `a`, `area`, `link`, `source`,
+or `style`. *)
+let media value = stringProperty "media" value
+
+(* Specify a URL to send a short POST request to when the user clicks on an
+`a` or `area`. Useful for monitoring and tracking. *)
+let ping value = stringProperty "ping" value
+
+(* Specifies the relationship of the target object to the link object.
+For `a`, `area`, `link`. *)
+let rel value = stringProperty "rel" value
+
+
+(* Crazy Stuff *)
+
+(* Indicates the date and time associated with the element.
+For `del`, `ins`, `time`. *)
+let datetime value = attribute "datetime" value 
+
+(* Indicates whether this date and time is the date of the nearest `article`
+ancestor element. For `time`. *)
+let pubdate value = attribute "pubdate" value
+
+
+(* Ordered Lists *)
+
+(* Indicates whether an ordered list `ol` should be displayed in a descending
+order instead of a ascending. *)
+let reversed boo = boolProperty "reversed" boo
+
+(* Defines the first number of an ordered list if you want it to be something
+besides 1. *)
+let start n = stringProperty "start" (string_of_int n)
+
+
+(* Tables *)
+
+(* The colspan attribute defines the number of columns a cell should span.
+For `td` and `th`. *)
+let colspan n = attribute "colspan" (string_of_int n)
+
+(* A space separated list of element IDs indicating which `th` elements are
+headers for this cell. For `td` and `th`. *)
+let headers value = stringProperty "headers" value
+
+(* Defines the number of rows a table cell should span over.
+For `td` and `th`. *)
+let rowspan n = attribute "rowspan" (string_of_int n)
+
+(* Specifies the scope of a header cell `th`. Possible values are: col, row,
+colgroup, rowgroup. *)
+let scope value = stringProperty "scope" value
+
+(* Specifies the URL of the cache manifest for an `html` tag. *)
+let manifest value = stringProperty "manifest" value
+
+
 
 end
 
