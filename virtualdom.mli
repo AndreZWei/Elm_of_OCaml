@@ -1,5 +1,6 @@
-open Decode 
+open Decode
 open Platform
+       
 (* nodes *)
 
 type 'msg node
@@ -12,7 +13,7 @@ val text : string -> 'msg node
 
 val map : ('a -> 'msg) -> 'a node -> 'msg node
 			  
-(* properties and attributes*)
+(* properties and attributes *)
 
 val property : string -> value -> 'msg property
 
