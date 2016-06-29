@@ -1,3 +1,8 @@
+	open Decode
+	open VirtualDom
+	open Platform
+
+
 	type 'msg html
 	
 	type 'msg attribute
@@ -133,31 +138,17 @@ module App: sig
 
 	type never
 
-	type ('model, 'msg) beginnerpgm = {
-		model: 'model
-	;   view: 'model -> 'msg html
-	;   update: 'msg -> 'model -> 'model
-	}
+	type ('model, 'msg) beginnerpgm
 
-	type ('flags, 'model, 'msg) pgm = {
-		init: ('model * 'msg Decode.cmd)
-	;	update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
-	;   subscriptions: 'model -> 'msg Decode.sub
-	;   view: 'model -> 'msg html
-	}
+	type ('model, 'msg) pgm
 	
-	type ('flags, 'msg, 'model) pgmwithFlags = {
-		init: 'flags -> ('model * 'msg Decode.cmd)
-	;   update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
-	;   subscriptions: 'model -> 'msg Decode.sub
-	;   view: 'model -> 'msg html
-	}
+	type ('flags, 'msg, 'model) pgmwithFlags
 	
 	val map : ('a -> 'msg) -> 'a html -> 'msg html
 
 	val beginnerProgram: ('model, 'msg) beginnerpgm -> never Platform.program
 
-	val program: ('flags, 'model, 'msg) pgm -> never Platform.program
+	val program: ('model, 'msg) pgm -> never Platform.program
 
 	val programWithFlags: ('flags, 'msg, 'model) pgmwithFlags -> 'flags Platform.program
 
@@ -326,7 +317,7 @@ module Attributes: sig
 
 	val reversed: bool -> 'msg attribute
 
-	val start: string -> 'msg attribute
+	val start: int -> 'msg attribute
 
 	(* tables *)
 
@@ -376,7 +367,7 @@ module Attributes: sig
 
 	val spellcheck: bool -> 'msg attribute
 
-	val tabinex: int -> 'msg attribute
+	val tabindex: int -> 'msg attribute
 
 	(* Key Generation *)
 
