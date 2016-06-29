@@ -1,6 +1,6 @@
-	type 'msg html = 'msg VirtualDom.node
+	type 'msg html
 	
-	type 'msg attribute = 'msg VirtualDom.property
+	type 'msg attribute
 
 	
 	(* Custom Nodes *)
@@ -139,7 +139,7 @@ module App: sig
 	;   update: 'msg -> 'model -> 'model
 	}
 
-	type ('model, 'msg) pgm = {
+	type ('flags, 'model, 'msg) pgm = {
 		init: ('model * 'msg Decode.cmd)
 	;	update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
 	;   subscriptions: 'model -> 'msg Decode.sub
@@ -157,7 +157,7 @@ module App: sig
 
 	val beginnerProgram: ('model, 'msg) beginnerpgm -> never Platform.program
 
-	val program: ('model, 'msg) pgm -> never Platform.program
+	val program: ('flags, 'model, 'msg) pgm -> never Platform.program
 
 	val programWithFlags: ('flags, 'msg, 'model) pgmwithFlags -> 'flags Platform.program
 
@@ -172,7 +172,7 @@ module Attributes: sig
 
 	val style: (string * string) list -> 'msg attribute
 
-	val class': string -> 'msg attribute
+	val className: string -> 'msg attribute
 
 	val classList: (string * bool) list -> 'msg attribute
 
