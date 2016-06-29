@@ -141,7 +141,7 @@ module App = struct
 	;   update: 'msg -> 'model -> 'model
 	}
 
-	type ('model, 'msg) pgm = {
+	type ('flags, 'model, 'msg) pgm = {
 		init: ('model * 'msg Decode.cmd)
 	;	update: 'msg -> 'model -> ('model * 'msg Decode.cmd)
 	;   subscriptions: 'model -> 'msg Decode.sub
@@ -154,6 +154,24 @@ module App = struct
 	;   subscriptions: 'model -> 'msg Decode.sub
 	;   view: 'model -> 'msg html
 	}
+
+	let map = VirtualDom.map
+
+	let beginnerProgram beginnerpgm  = 
+		programWithFlags 
+			{ init = (fun () -> (beginnerpgm.model, Cmd.none)) 
+			; update = (fun msg model -> (beginnerpgm.update msg model, Cmd.none))  
+			; view = view 
+			; subscriptions = (fun () -> Sub.none)
+			}
+
+	let program pgm =
+		programwithFlags { pgm with init = (fun () -> pgm.init) }
+
+	let programWithFlags = VirtualDom.programWithFlags
+
+
+
 
 
 end 
@@ -367,9 +385,68 @@ let defaultValue value = stringProperty "defaultValue" value
 (* Indicates whether an `input` of type checkbox is checked *)
 let checked boo = boolProperty "checked" boo 
 
+(* Provides a hint to the user of what can be entered into an `input` or
+`textarea`. *)
+let placeholder value = stringProperty "placeholder" value 
+
+(* Defines which `option` will be selected on page load. *)
+let selected boo = boolProperty "selected" boo 
 
 
+(* Input Helpers *)
 
+(* List of types the server accepts, typically a file type.
+For `form` and `input`. *)
+let accept value = stringProperty "accept" value
+
+(* List of supported charsets in a `form`. *)
+let acceptCharset value = stringProperty "acceptCharset" value
+
+(* The URI of a program that processes the information submitted via a `form`. *)
+let action value = stringProperty "action" value
+
+(* Indicates whether a `form` or an `input` can have their values automatically
+completed by the browser. *)
+let autocomplete boo = stringProperty "autocomplete" (if boo then "on" else "off")
+
+(* The element should be automatically focused after the page loaded.
+For `button`, `input`, `keygen`, `select`, and `textarea`. *)
+let autofocus boo = boolProperty "autofocus" boo 
+
+(* Previous entries into an `input` will be persisted across page loads,
+associated with a unique ID. The previous entries will be displayed as
+suggestions when the user types into an `input` that has an autosave attribute
+with the same unique ID. *)
+let autosave value = stringProperty "autosave" value
+
+(* Indicates whether the user can interact with a `button`, `fieldset`,
+`input`, `keygen`, `optgroup`, `option`, `select` or `textarea`. *)
+let disabled boo = boolProperty "disabled" boo
+
+(* How `form` data should be encoded when submitted with the POST method.
+Options include: application/x-www-form-urlencoded, multipart/form-data, and
+text/plain. *)
+let enctype value = stringProperty "enctype" value
+
+(* Indicates the action of an `input` or `button`. This overrides the action
+defined in the surrounding `form`. *)
+let formaction value = stringProperty "formAction" value
+
+(* Associates an `input` with a `datalist` tag. The datalist gives some
+pre-defined options to suggest to the user as they interact with an input.
+The value of the list attribute must match the id of a `datalist` node.
+For `input`. *)
+let list value = attribute "list" value
+
+(* Defines the minimum number of characters allowed in an `input` or
+`textarea`. *)
+let minlength n = stringProperty "minlength" (string_of_int n)
+
+(* Defines the maximum number of characters allowed in an `input` or 
+`textarea` *)
+let maxlength n = stringProperty "maxlength" (string_of_int n)
+
+(* *)
 
 end
 
