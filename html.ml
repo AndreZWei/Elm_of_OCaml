@@ -2,7 +2,10 @@
 
 open VirtualDom
 open Decode
+open Encode
 open Platform
+open Platform.Cmd 
+open Platform.Sub
 
 type 'msg html = 'msg VirtualDom.node
 
@@ -143,9 +146,9 @@ module App = struct
 	}
 
 	type ('model, 'msg) pgm = {
-		init: ('model * Cmd.msg)
-	;	update: 'msg -> 'model -> ('model * Cmd.msg)
-	;   subscriptions: 'model -> Sub.msg
+		init: ('model * 'msg cmd)
+	;	update: 'msg -> 'model -> ('model * 'msg cmd)
+	;   subscriptions: 'model -> 'msg sub
 	;   view: 'model -> 'msg html
 	}
 	
@@ -190,9 +193,9 @@ let style l = VirtualDom.style l
 (* Create arbitray properties *)
 let property key value = VirtualDom.property key value
 
-let stringProperty name s = property name (jsonstring s)
+let stringProperty name s = property name (jsstring s)
 
-let boolProperty name boo = property name (jsonbool boo)
+let boolProperty name boo = property name (jsbool boo)
 
 (* Often used with CSS to style elements with common properties *)
 let className name = stringProperty "className" name
@@ -650,11 +653,19 @@ let manifest value = stringProperty "manifest" value
 
 end
 
-module Events = struct
+(*module Events = struct
 
-end
+
+
+end*)
 
 module Lazy = struct
+
+let lazy1 = VirtualDom.lazy1
+
+let lazy2 = VirtualDom.lazy2
+
+let lazy3 = VirtualDom.lazy3
 
 end
 

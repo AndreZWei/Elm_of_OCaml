@@ -1,6 +1,8 @@
 	open Decode
 	open VirtualDom
 	open Platform
+	open Platform.Cmd 
+	open Platform.Sub 
 
 
 	type 'msg html
@@ -136,13 +138,23 @@
 
 module App: sig
 
-	type never
+	type never = Never of never
 
-	type ('model, 'msg) beginnerpgm
+	type ('model, 'msg) beginnerpgm = {
+		model: 'model
+	;   view: 'model -> 'msg html
+	;   update: 'msg -> 'model -> 'model
+	}
 
-	type ('model, 'msg) pgm
+	type ('model, 'msg) pgm = {
+		init: ('model * 'msg cmd)
+	;	update: 'msg -> 'model -> ('model * 'msg cmd)
+	;   subscriptions: 'model -> 'msg sub
+	;   view: 'model -> 'msg html
+	}
 	
-	type ('flags, 'msg, 'model) pgmwithFlags
+	type ('flags, 'msg, 'model) pgmwithFlags = 
+	('flags, 'msg, 'model) VirtualDom.pgm
 	
 	val map : ('a -> 'msg) -> 'a html -> 'msg html
 
@@ -394,7 +406,7 @@ module Attributes: sig
 end
 
 
-module Events: sig
+(*module Events: sig
 	
 	(* Html Events *)
 
@@ -444,7 +456,7 @@ module Events: sig
 
 	type keyCode = int Decode.decoder 
 
-end
+end*)
 
 	(* Lazy*)
 
@@ -454,6 +466,6 @@ module Lazy: sig
 
 	val lazy2: ('a -> 'b -> 'msg html) -> 'a -> 'b -> 'msg html
 
-	val lazy3: ('a -> 'b -> 'c -> 'msg html) -> 'a -> 'b -> 'c
+	val lazy3: ('a -> 'b -> 'c -> 'msg html) -> 'a -> 'b -> 'c -> 'msg html
 	
 end
