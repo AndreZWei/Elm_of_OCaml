@@ -60,3 +60,27 @@ let jsontuple4 f decoder1 decoder2 decoder3 decoder4 =
 	let argList = toList5 f decoder1 decoder2 decoder3 decoder4
 	in
 	callFun "_elm_lang$Native_Json.decodeTuple4" argList
+
+let decodeField s decoder = 
+	let argList = toList2 s decoder 
+    in
+    callFun "_elm_lang$Native_Json.decodeField" argList
+
+let at fields decoder = 
+	List.fold_right decodeField decoder fields 
+
+let andThen decoder f =
+	let argList = toList2 decoder f
+    in
+    callFun "_elm_lang$Native_Json.andThen" argList
+
+let fail s = 
+	let arg = toList s
+	in
+	callFun "_elm_lang$Native_Json.fail" arg
+
+let succeed obj = 
+	let arg = toList obj
+    in
+    callFun "_elm_lang$Native_Json.succeed" arg
+
