@@ -406,7 +406,7 @@ module Attributes: sig
 end
 
 
-(*module Events: sig
+module Events: sig
 	
 	(* Html Events *)
 
@@ -440,23 +440,23 @@ end
 
 	val onFocus: 'msg -> 'msg attribute
 
-	(* Custon Event Handlers *)
+	(* Custom Event Handlers *)
 
 	type options = VirtualDom.options
 
 	val on: string -> 'msg Decode.decoder -> 'msg attribute
 
-	val onwithOptions: string -> options -> 'msg Decode.decoder -> 'msg attribute
+	val onWithOptions: string -> options -> 'msg Decode.decoder -> 'msg attribute
 
 	(* Custom Decoders *)
 
-	type targetValue = string Decode.decoder
+	val targetValue: string Decode.decoder
 
-	type targetChecked = bool Decode.decoder
+	val targetChecked: bool Decode.decoder
 
-	type keyCode = int Decode.decoder 
+	val keyCode: int Decode.decoder 
 
-end*)
+end
 
 	(* Lazy*)
 
