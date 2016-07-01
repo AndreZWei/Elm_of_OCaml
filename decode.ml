@@ -19,6 +19,11 @@ let decodeValue decoder v =
 	in
 	callFun "_elm_lang$Native_Json.run" argList
 
+let map tagger decoder = 
+	let argList = toList2 tagger decoder
+    in
+    callFun "_elm_lang$Native_Json.decodeObject1" argList
+
 let jsonstring = 
   	decodePrimitive "string"
 
@@ -67,7 +72,7 @@ let decodeField s decoder =
     callFun "_elm_lang$Native_Json.decodeField" argList
 
 let at fields decoder = 
-	List.fold_right decodeField decoder fields 
+	List.fold_left decodeField decoder fields 
 
 let andThen decoder f =
 	let argList = toList2 decoder f
