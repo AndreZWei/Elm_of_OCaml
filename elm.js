@@ -2811,7 +2811,8 @@ var _elm_lang$core$Native_Platform = function() {
 // PROGRAMS
 
 function addPublicModule(object, name, main)
-{
+    {
+	
 	var init = main ? makeEmbed(name, main) : mainIsUndefined(name);
 
 	object['worker'] = function worker(flags)
@@ -2885,7 +2886,8 @@ function dummyRenderer()
 // MAIN TO PROGRAM
 
 function mainToProgram(moduleName, wrappedMain)
-{
+    {
+		
 	var main = wrappedMain.main;
 
 	if (typeof main.init === 'undefined')
@@ -2895,7 +2897,7 @@ function mainToProgram(moduleName, wrappedMain)
 			_elm_lang$core$Native_Utils.Tuple0,
 			emptyBag
 		);
-
+	    
 		return _elm_lang$virtual_dom$VirtualDom$programWithFlags({
 			init: function() { return noChange; },
 			view: function() { return main; },
@@ -5569,11 +5571,24 @@ function text(string)
 }
 
 
-function node(tag)
-{
-	return F2(function(factList, kidList) {
-		return nodeHelp(tag, factList, kidList);
-	});
+    function node(tag, factList, kidList)
+    {
+	if (factList == 0)
+	    factList = []
+	else {
+	    factList.pop();
+	    factList.shift();
+	}
+	if (kidList ==0)
+	    kidList = []
+	else {
+	    kidList.pop();
+	    kidList.shift();
+	}
+    //return F2(function(factList, kidList) {
+	return nodeHelp(tag, factList, kidList);
+    //});
+
 }
 
 
@@ -5583,9 +5598,9 @@ function nodeHelp(tag, factList, kidList)
 	var namespace = organized.namespace;
 	var facts = organized.facts;
 
-	var children = [];
-	var descendantsCount = 0;
-	while (kidList.ctor !== '[]')
+	var children = kidList;
+	var descendantsCount = kidList.length;
+	/*while (kidList.ctor !== '[]')
 	{
 		var kid = kidList._0;
 		descendantsCount += (kid.descendantsCount || 0);
@@ -5593,7 +5608,7 @@ function nodeHelp(tag, factList, kidList)
 		kidList = kidList._1;
 	}
 	descendantsCount += children.length;
-
+	*/
 	return {
 		type: 'node',
 		tag: tag,
@@ -5670,7 +5685,7 @@ function organizeFacts(factList)
 {
 	var namespace, facts = {};
 
-	while (factList.ctor !== '[]')
+	while (factList.length !== 0)
 	{
 		var entry = factList._0;
 		var key = entry.key;
@@ -5788,9 +5803,10 @@ function equalEvents(a, b)
 
 function renderer(parent, tagger, initialVirtualNode)
 {
-	var eventNode = { tagger: tagger, parent: null };
+    var eventNode = { tagger: tagger, parent: null };
+    
+    var domNode = render(initialVirtualNode, eventNode);
 
-	var domNode = render(initialVirtualNode, eventNode);
 	parent.appendChild(domNode);
 
 	var state = 'NO_REQUEST';

@@ -1,3 +1,3 @@
 open VirtualDom
 
-val kickoff : 'msg node -> unit
+val kickoff : 'a -> unit

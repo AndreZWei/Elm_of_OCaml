@@ -5,7 +5,7 @@ open VirtualDom
        
 let elm = Unsafe.obj [||]
 	 
-let kickoff (main : 'msg node) =
+let kickoff main =
   let wrappedmain = Unsafe.obj [|("main", Unsafe.inject main)|]
   in
   let argList = toList3 elm (string "Main") wrappedmain

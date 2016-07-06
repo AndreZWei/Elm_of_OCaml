@@ -3,9 +3,9 @@ open Decode
 open Platform.Cmd
 open Platform.Sub
        
-type 'msg node = <_type : Js.js_string Js.t> Js.t
+type 'msg node = Node
 
-type 'msg property = <_key : string; _value : Js.js_string Js.t> Js.t 
+type 'msg property = Property
 
 let text text =
   let textList = toList text

@@ -1,10 +1,10 @@
-open VirtualDom
+open Html
 open Wrapper
 
 type msg = Increment | Decrement
        
-let main : (msg node)
-  = text "Hello World" 
-
+let main : (msg html)
+  = div [] [text "AAAA"]
+	   
 let () =
   kickoff main
