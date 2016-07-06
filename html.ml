@@ -653,11 +653,80 @@ let manifest value = stringProperty "manifest" value
 
 end
 
-(*module Events = struct
+module Events = struct
+
+(* Custom Event Handlers *)
+type options = VirtualDom.options
+
+let on msg decoder = 
+	VirtualDom.on msg decoder
+
+let onWithOptions msg opt decoder = 
+	VirtualDom.onWithOptions msg opt decoder
+
+let (defaultOptions: options) = 
+	{ stopPropagation = false
+	; preventDefault = false
+	}
+
+(* Custom Decoders *)
+let targetValue = 
+	Decode.at ["target"; "value"] Decode.jsonstring
+
+let targetChecked = 
+	Decode.at ["target"; "checked"] Decode.jsonbool
+
+let keyCode = 
+	Decode.decodeField "keyCode" Decode.jsonint
+
+(* Html Events *)
+
+let onClick msg = 
+	on "click" (succeed msg)
+
+let onDoubleClick msg = 
+	on "dblclik" (succeed msg)
+
+let onMouseDown msg = 
+	on "mousedown" (succeed msg)
+
+let onMouseUp msg = 
+	on "mouseup" (succeed msg)
+
+let onMouseEnter msg = 
+	on "mouseenter" (succeed msg)
+
+let onMouseLeave msg =
+	on "mouseleave" (succeed msg)
+
+let onMouseOver msg =
+	on "mouseover" (succeed msg)
+
+let onMouseOut msg = 
+	on "mouseout" (succeed msg)
+
+(* Form Helpers *)
+let onInput tagger = 
+	on "input" (Decode.map tagger targetValue)
+
+let onCheck tagger = 
+	on "change" (Decode.map tagger targetChecked)
+
+let (onSubmitOptions: options) = { defaultOptions with preventDefault = true }
+
+let onSubmit msg = 
+	onWithOptions "submit" onSubmitOptions (succeed msg)
+
+(* Focus Helpers *)
+let onFocus msg = 
+	on "focus" (succeed msg)
+
+let onBlur msg = 
+	on "blur" (succeed msg)
 
 
 
-end*)
+end
 
 module Lazy = struct
 

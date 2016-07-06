@@ -6,6 +6,8 @@ val decodeString: 'a decoder -> string -> 'a
 
 val decodeValue: 'a decoder -> value -> 'a
 
+val map: ('a -> 'b) -> 'a decoder -> 'b decoder
+
 val jsonstring : string decoder
 
 val jsonint: int decoder
@@ -27,3 +29,13 @@ val jsontuple3: ('a -> 'b -> 'c -> value) -> 'a decoder -> 'b decoder -> 'c deco
 
 val jsontuple4: ('a -> 'b -> 'c -> 'd -> value) -> 'a decoder -> 'b decoder -> 
 'c decoder -> 'd decoder -> value decoder 
+
+val decodeField: string -> 'a decoder -> 'a decoder
+
+val at: string list -> 'a decoder -> 'a decoder
+
+val andThen: 'a decoder -> ('a -> 'b decoder) -> 'b decoder
+
+val fail: string -> 'a decoder
+
+val succeed: 'a -> 'a decoder
