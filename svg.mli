@@ -88,3 +88,5 @@ val symbol: ('msg attribute) list -> ('msg svg) list -> 'msg svg
 (* Text *)
 
 val altGlyph: ('msg attribute) list -> ('msg svg) list -> 'msg svg
+
+val altGlyphDef: ('msg attribute) list -> ('msg svg) list -> 'msg svg
