@@ -90,3 +90,6 @@ val symbol: ('msg attribute) list -> ('msg svg) list -> 'msg svg
 val altGlyph: ('msg attribute) list -> ('msg svg) list -> 'msg svg
 
 val altGlyphDef: ('msg attribute) list -> ('msg svg) list -> 'msg svg
+
+val altGlyphItem: ('msg attribute) list -> ('msg svg) list -> 'msg svg
+
