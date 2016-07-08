@@ -13,9 +13,9 @@ let text text =
   callFun "_elm_lang$virtual_dom$Native_VirtualDom.text" textList
 	  
 let node tag property children =
-  let argList = toList3 tag property children
+  let argList = toList4 (Js.Unsafe.js_expr "_elm_lang$virtual_dom$Native_VirtualDom.node") tag property children
   in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.node" argList
+  callFun "A3" argList
 
 let map f node =
   let argList = toList2 f node

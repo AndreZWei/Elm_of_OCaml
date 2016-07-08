@@ -5571,7 +5571,16 @@ function text(string)
 }
 
 
-    function node(tag, factList, kidList)
+    function node(tag)
+    {
+    return F2(function(factList, kidList) {
+	return nodeHelp(tag, factList, kidList);
+    });
+
+}
+
+
+function nodeHelp(tag, factList, kidList)
     {
 	if (factList == 0)
 	    factList = []
@@ -5585,15 +5594,6 @@ function text(string)
 	    kidList.pop();
 	    kidList.shift();
 	}
-    //return F2(function(factList, kidList) {
-	return nodeHelp(tag, factList, kidList);
-    //});
-
-}
-
-
-function nodeHelp(tag, factList, kidList)
-{
 	var organized = organizeFacts(factList);
 	var namespace = organized.namespace;
 	var facts = organized.facts;
@@ -5700,11 +5700,11 @@ function organizeFacts(factList)
 		{
 			var styles = facts[key] || {};
 			var styleList = entry.value;
-			while (styleList.ctor !== '[]')
+			while (styleList.length !== 0)
 			{
 				var style = styleList._0;
 				styles[style._0] = style._1;
-				styleList = styleList._1;
+			    styleList.shift();
 			}
 			facts[key] = styles;
 		}
@@ -5716,7 +5716,7 @@ function organizeFacts(factList)
 		{
 			facts[key] = entry.value;
 		}
-		factList = factList._1;
+	    factList.shift();
 	}
 
 	return {
