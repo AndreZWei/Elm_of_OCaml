@@ -5,9 +5,9 @@ open Platform.Cmd
 open Platform.Sub 
 
 
-type 'msg html
+type 'msg html = 'msg VirtualDom.node
 	
-type 'msg attribute
+type 'msg attribute = 'msg VirtualDom.property
 
 	
 (* Custom Nodes *)
