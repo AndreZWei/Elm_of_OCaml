@@ -5686,8 +5686,9 @@ function organizeFacts(factList)
 	var namespace, facts = {};
 
 	while (factList.length !== 0)
-	{
-		var entry = factList._0;
+    {
+	console.log(factList);
+		var entry = factList[0];
 		var key = entry.key;
 
 		if (key === ATTR_KEY || key === ATTR_NS_KEY || key === EVENT_KEY)
@@ -5702,8 +5703,8 @@ function organizeFacts(factList)
 			var styleList = entry.value;
 			while (styleList.length !== 0)
 			{
-				var style = styleList._0;
-				styles[style._0] = style._1;
+				var style = styleList[0];
+				styles[style[0]] = style[1];
 			    styleList.shift();
 			}
 			facts[key] = styles;
