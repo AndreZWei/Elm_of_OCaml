@@ -718,7 +718,53 @@ end
 
 module Events : sig
 
+(* Animation event attributes *)
 
+val onBegin: 'msg -> 'msg attribute
+
+val onEnd: 'msg -> 'msg attribute
+
+val onRepeat: 'msg -> 'msg attribute
 	
+val onBegin: 'msg -> 'msg attribute
+
+(* Document event attributes *)
+
+val onAbort: 'msg -> 'msg attribute
+
+val onError: 'msg -> 'msg attribute
+
+val onResize: 'msg -> 'msg attribute
+
+val onScroll: 'msg -> 'msg attribute
+
+val onLoad: 'msg -> 'msg attribute
+
+val onUnLoad: 'msg -> 'msg attribute
+
+val onZoom: 'msg -> 'msg attribute
+
+(* Graphical events attributes *)
+
+val onActivate: 'msg -> 'msg attribute
+
+val onClick: 'msg -> 'msg attribute
+
+val onFocusIn: 'msg -> 'msg attribute
+
+val onFocusOut: 'msg -> 'msg attribute
+
+val onMouseDown: 'msg -> 'msg attribute
+
+val onMouseMove: 'msg -> 'msg attribute
+
+val onMouseOut: 'msg -> 'msg attribute
+
+val onMouseUp: 'msg -> 'msg attribute
+
+(* Custon Events *)
+
+val on: string -> 'msg decoder -> 'msg attribute
+
 end
 

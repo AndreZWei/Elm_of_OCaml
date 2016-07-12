@@ -717,6 +717,53 @@ end
 
 module Events = struct
 
+(* Custom Events *)
+
+let simpleOn name = (fun msg -> on name (Decode.succeed msg))
+
+let on name decoder = VirtualDom.on name decoder
+
+(* Animation *)
+
+let onBegin msg = simpleOn "begin" msg
+
+let onEnd msg = simpleOn "end" msg
+
+let onRepeat msg = simpleOn "repeat" msg
+
+(* Document event attributes *)
+
+let onAbort msg = simpleOn "abort" msg
+
+let onError msg = simpleOn "error" msg
+
+let onResize msg = simpleOn "resize" msg
+
+let onScroll msg = simpleOn "scroll" msg
+
+let onLoad msg = simpleOn "load" msg
+
+let onUnLoad msg = simpleOn "unload" msg
+
+let onZoom msg = simpleOn "zoom" msg
+
+(* Graphical events attributes *)
+
+let onActivate msg = simpleOn "activate" msg
+
+let onClick msg = simpleOn "click" msg
+
+let onFocusIn msg = simpleOn "focusin" msg
+
+let onFocusOut msg = simpleOn "focusout" msg
+
+let onMouseDown msg = simpleOn "mousedown" msg
+
+let onMouseMove msg = simpleOn "mousemove" msg
+
+let onMouseOut msg = simpleOn "mouseout" msg
+
+let onMouseUp msg = simpleOn "mouseup" msg
 
 end
 
