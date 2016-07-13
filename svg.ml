@@ -719,7 +719,7 @@ module Events = struct
 
 (* Custom Events *)
 
-let simpleOn name = (fun msg -> on name (Decode.succeed msg))
+let simpleOn name = (fun msg -> on name (succeed msg))
 
 let on name decoder = VirtualDom.on name decoder
 

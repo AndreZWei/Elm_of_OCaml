@@ -9,21 +9,9 @@ type model = int
 
 
 
-type msg = Increment | Decrement
+type msg = int
 
-let update msg model = 
-	match msg with 
-	| Increment -> model + 1
-	| Decrement -> model - 1
-
-let view model =   
-	div []
-    [ button [ onClick Decrement ] [ text "-" ]
-    ; div [] [ text (string_of_int model) ]
-    ; button [ onClick Increment ] [ text "+" ]
-    ]
-
-let main = beginnerProgram { model = 0; update = update; view = view}
+let (main: msg html) = button [] [text "Hello World"]
 	   
 let () =
   kickoff main
