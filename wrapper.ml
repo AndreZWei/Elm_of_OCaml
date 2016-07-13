@@ -10,5 +10,5 @@ let kickoff main =
   in
   let argList = toList3 elm (string "Main") wrappedmain
   in
-  ignore (callFun "_elm_lang$core$Native_Platform.addPublicModule" argList);
+  ignore (call "_elm_lang$core$Native_Platform.addPublicModule" argList);
   ignore (Unsafe.meth_call elm  "fullscreen" [||])

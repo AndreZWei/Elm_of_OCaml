@@ -5,87 +5,74 @@ type 'a decoder = Decoder
 type value = Encode.value
 
 let decodePrimitive tag =
-  	let argList = toList tag
-  	in
-  	callFun "_elm_lang$core$Native_Json.decodePrimitive" argList
+  callFun "_elm_lang$core$Native_Json.decodePrimitive"
+	  tag
 
 let decodeString decoder s = 
-	let argList = toList2 decoder s
-	in
-	callFun "_elm_lang$core$Native_Json.runOnString" argList
+  callFun2 "_elm_lang$core$Native_Json.runOnString"
+	  decoder s	 
 
 let decodeValue decoder v = 
-	let argList = toList2 decoder v
-	in
-	callFun "_elm_lang$core$Native_Json.run" argList
+  callFun2 "_elm_lang$core$Native_Json.run"
+	  decoder v
 
 let map tagger decoder = 
-	let argList = toList2 tagger decoder
-    in
-    callFun "_elm_lang$core$Native_Json.decodeObject1" argList
+  callFun2 "_elm_lang$core$Native_Json.decodeObject1"
+	  tagger decoder
 
 let jsonstring = 
-  	decodePrimitive "string"
+  decodePrimitive "string"
 
 let jsonint = 
-	decodePrimitive "int"
+  decodePrimitive "int"
 
 let jsonfloat = 
-	decodePrimitive "float"
+  decodePrimitive "float"
 
 let jsonbool =
-  	decodePrimitive "bool"
+  decodePrimitive "bool"
 
 let jsonlist decoder = 
-	let argList = toList2 "list" decoder
-    in
-    callFun "_elm_lang$core$Native_Json.decodeContainer" argList
+  callFun "_elm_lang$core$Native_Json.decodeContainer"
+	  decoder
 
 let jsonarray decoder = 
-	let argList = toList2 "array" decoder
-    in
-    callFun "_elm_lang$core$Native_Json.decodeContainer" argList
+  callFun "_elm_lang$core$Native_Json.decodeContainer"
+	  decoder
 
 let jsontuple1 f decoder =
-	let argList = toList2 f decoder
-	in
-	callFun "_elm_lang$core$Native_Json.decodeTuple1" argList
+  callFun2 "_elm_lang$core$Native_Json.decodeTuple1"
+	  f decoder
 
 let jsontuple2 f decoder1 decoder2 =
-	let argList = toList3 f decoder1 decoder2
-	in
-	callFun "_elm_lang$core$Native_Json.decodeTuple2" argList
+  callFun3 "_elm_lang$core$Native_Json.decodeTuple2"
+	  f decoder1 decoder2
 
 let jsontuple3 f decoder1 decoder2 decoder3 =
-	let argList = toList4 f decoder1 decoder2 decoder3
-	in
-	callFun "_elm_lang$core$Native_Json.decodeTuple3" argList
+  callFun4 "_elm_lang$core$Native_Json.decodeTuple3"
+	  f decoder1 decoder2 decoder3
 
-let jsontuple4 f decoder1 decoder2 decoder3 decoder4 =
+(* let jsontuple4 f decoder1 decoder2 decoder3 decoder4 =
 	let argList = toList5 f decoder1 decoder2 decoder3 decoder4
 	in
 	callFun "_elm_lang$core$Native_Json.decodeTuple4" argList
-
+ *)
 let decodeField s decoder = 
-	let argList = toList2 s decoder 
-    in
-    callFun "_elm_lang$core$Native_Json.decodeField" argList
+  callFun2 "_elm_lang$core$Native_Json.decodeField"
+	   s decoder
 
 let at fields decoder = 
-	List.fold_left decodeField decoder fields 
+  List.fold_left decodeField decoder fields 
 
 let andThen decoder f =
-	let argList = toList2 decoder f
-    in
-    callFun "_elm_lang$core$Native_Json.andThen" argList
+  callFun2 "_elm_lang$core$Native_Json.andThen"
+	   decoder f
 
 let fail s = 
-	let arg = toList s
-	in
-	callFun "_elm_lang$core$Native_Json.fail" arg
+  callFun "_elm_lang$core$Native_Json.fail"
+	  s
 
 let succeed obj = 
-	let arg = toList obj
-    in
-    callFun "_elm_lang$core$Native_Json.succeed" arg
+  callFun "_elm_lang$core$Native_Json.succeed"
+	  obj
 
