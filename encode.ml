@@ -3,14 +3,12 @@ open Utils
 type value = Value
        
 let encode indent value =
-  let argList = toList2 indent value
-  in
-  callFun "_elm_lang$core$Native_Json.encode" argList
+  callFun2 "_elm_lang$core$Native_Json.encode"
+	   indent value
 
 let identity value =
-  let arg = toList value
-  in
-  callFun "_elm_lang$core$Native_Json.identity" arg
+  callFun "_elm_lang$core$Native_Json.identity"
+	  value
 
 let jsstring = identity
 
@@ -21,14 +19,12 @@ let jsint = identity
 let jsfloat = identity
 
 let jslist l = 
-	let arg = toList l
-    in
-    callFun "_elm_lang$core$Native_Json.encodeList" arg
+  callFun "_elm_lang$core$Native_Json.encodeList"
+	  l
 
 let jsarray a = 
-	let arg = toList a
-	in 
-	callFun "_elm_lang$core$Native_Json.encodeArray" arg
+  callFun "_elm_lang$core$Native_Json.encodeArray"
+	  a
 
 (*let jsobject pair = 
 	let arg = toList pair 

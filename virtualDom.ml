@@ -8,40 +8,33 @@ type 'msg node = Node
 type 'msg property = Property
 
 let text text =
-  let textList = toList text
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.text" textList
+  callFun "_elm_lang$virtual_dom$Native_VirtualDom.text"
+	  text
 	  
 let node tag property children =
-  let argList = toList4 (Js.Unsafe.js_expr "_elm_lang$virtual_dom$Native_VirtualDom.node") tag property children
-  in
-  callFun "A3" argList
+  callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.node"
+	   tag property children
 
 let map f node =
-  let argList = toList2 f node
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.map" argList
+  callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.map"
+	  f node
 	  
 (* properties and attributes *)
 let property key value =
-  let argList = toList2 key value
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.property" argList
+  callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.property"
+	  key value	  
 	  
 let attribute key value =
-  let argList = toList2 key value
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.attribute" argList
+  callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.attribute"
+	  key value
 	  
 let attributeNS namespace key value =
-  let argList = toList3 namespace key value
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.attributeNS" argList
+  callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.attributeNS"
+	  namespace key value
 
 let style styleList =
-  let argList = toList styleList
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.style" argList
+  callFun "_elm_lang$virtual_dom$Native_VirtualDom.style"
+	  styleList
 	  
 (* events *)
 type options = {
@@ -55,9 +48,8 @@ let defaultOptions : options =
   }
 
 let onWithOptions eventName option decoder =
-  let argList = toList3 eventName option decoder
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.on" argList
+  callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.on"
+	  eventName option decoder
 	  
 let on eventName decoder =
   onWithOptions eventName defaultOptions decoder
@@ -65,19 +57,16 @@ let on eventName decoder =
 (* optimizations *)
 
 let lazy1 (f : 'a -> 'msg node) (a : 'a) =
-  let argList = toList2 f a
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.lazy" argList
+  callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.lazy"
+	  f a
 
 let lazy2 (f : 'a -> 'b -> 'msg node) (a : 'a) (b : 'b)  =
-  let argList = toList3 f a b
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.lazy2" argList
+  callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.lazy2"
+	  f a b
 
 let lazy3 (f : 'a -> 'b -> 'c -> 'msg node) (a : 'a) (b : 'b) (c : 'c) =
-  let argList = toList4 f a b c
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.lazy3" argList
+  callFun4 "_elm_lang$virtual_dom$Native_VirtualDom.lazy3"
+	   f a b c
 
 (* programs *)
 	  
@@ -89,6 +78,5 @@ type ('flags, 'model, 'msg) pgm = {
   }
 
 let programWithFlags pgm =
-  let argList = toList pgm
-  in
-  callFun "_elm_lang$virtual_dom$Native_VirtualDom.programWithFlags" argList
+  callFun "_elm_lang$virtual_dom$Native_VirtualDom.programWithFlags"
+	  pgm

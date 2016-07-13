@@ -27,9 +27,9 @@ val jsontuple2: ('a -> 'b -> value) -> 'a decoder -> 'b decoder -> value decoder
 val jsontuple3: ('a -> 'b -> 'c -> value) -> 'a decoder -> 'b decoder -> 'c decoder
 -> value decoder
 
-val jsontuple4: ('a -> 'b -> 'c -> 'd -> value) -> 'a decoder -> 'b decoder -> 
+(* val jsontuple4: ('a -> 'b -> 'c -> 'd -> value) -> 'a decoder -> 'b decoder -> 
 'c decoder -> 'd decoder -> value decoder 
-
+ *)
 val decodeField: string -> 'a decoder -> 'a decoder
 
 val at: string list -> 'a decoder -> 'a decoder
