@@ -2812,7 +2812,7 @@ var _elm_lang$core$Native_Platform = function() {
 
 function addPublicModule(object, name, main)
     {
-	
+
 	var init = main ? makeEmbed(name, main) : mainIsUndefined(name);
 
 	object['worker'] = function worker(flags)
@@ -2956,7 +2956,7 @@ function initWithFlags(moduleName, realInit, flagDecoder)
 // SETUP RUNTIME SYSTEM
 
 function makeEmbedHelp(moduleName, program, rootDomNode, flags)
-{
+    {
 	var init = program.init;
 	var update = program.update;
 	var subscriptions = program.subscriptions;
@@ -2969,22 +2969,25 @@ function makeEmbedHelp(moduleName, program, rootDomNode, flags)
 
 	// init and update state in main process
 	var initApp = _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-		var results = init(flags);
-		var model = results._0;
-		renderer = makeRenderer(rootDomNode, enqueue, view(model));
-		var cmds = results._1;
-		var subs = subscriptions(model);
-		dispatchEffects(managers, cmds, subs);
-		callback(_elm_lang$core$Native_Scheduler.succeed(model));
+
+	    //TODO
+	    var results = init(flags);
+	    var model = results[1];
+	    
+	    renderer = makeRenderer(rootDomNode, enqueue, view(model));
+	    var cmds = results[2];
+	    var subs = subscriptions(model);
+	    dispatchEffects(managers, cmds, subs);
+	    callback(_elm_lang$core$Native_Scheduler.succeed(model));
 	});
 
 	function onMessage(msg, model)
 	{
-		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-			var results = A2(update, msg, model);
-			model = results._0;
+	    return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+		var results = update(msg, model);
+			model = results[1];
 			renderer.update(view(model));
-			var cmds = results._1;
+			var cmds = results[2];
 			var subs = subscriptions(model);
 			dispatchEffects(managers, cmds, subs);
 			callback(_elm_lang$core$Native_Scheduler.succeed(model));
@@ -3122,8 +3125,8 @@ function leaf(home)
 
 function batch(list)
 {
-	return {
-		type: 'node',
+    return {
+	type: 'node',
 		branches: list
 	};
 }
@@ -3171,10 +3174,10 @@ function gatherEffects(isCmd, bag, effectsDict, taggers)
 
 		case 'node':
 			var list = bag.branches;
-			while (list.ctor !== '[]')
+			while (list.length !== 0)
 			{
-				gatherEffects(isCmd, list._0, effectsDict, taggers);
-				list = list._1;
+				gatherEffects(isCmd, list[0], effectsDict, taggers);
+			    list.shift();
 			}
 			return;
 
@@ -5573,42 +5576,30 @@ function text(string)
 
     function node(tag)
     {
-    return F2(function(factList, kidList) {
-	return nodeHelp(tag, factList, kidList);
-    });
-
-}
+	return F2(function(factList, kidList) {
+	    return nodeHelp(tag, factList, kidList);
+	});
+	
+    }
 
 
 function nodeHelp(tag, factList, kidList)
     {
-	if (factList == 0)
-	    factList = []
-	else {
-	    factList.pop();
-	    factList.shift();
-	}
-	if (kidList ==0)
-	    kidList = []
-	else {
-	    kidList.pop();
-	    kidList.shift();
-	}
 	var organized = organizeFacts(factList);
 	var namespace = organized.namespace;
 	var facts = organized.facts;
 
-	var children = kidList;
-	var descendantsCount = kidList.length;
-	/*while (kidList.ctor !== '[]')
+	var children = [];
+	var descendantsCount = 0;
+
+	while (kidList !== 0)
 	{
-		var kid = kidList._0;
-		descendantsCount += (kid.descendantsCount || 0);
+		var kid = kidList[1];
+		descendantsCount += 1
 		children.push(kid);
-		kidList = kidList._1;
+		kidList = kidList[2];
 	}
-	descendantsCount += children.length;
-	*/
+
 	return {
 		type: 'node',
 		tag: tag,
@@ -5683,12 +5674,11 @@ function lazy3(fn, a, b, c)
 
 function organizeFacts(factList)
 {
-	var namespace, facts = {};
+    var namespace, facts = {};
 
-	while (factList.length !== 0)
+    while (factList !== 0)
     {
-	console.log(factList);
-		var entry = factList[0];
+		var entry = factList[1];
 		var key = entry.key;
 
 		if (key === ATTR_KEY || key === ATTR_NS_KEY || key === EVENT_KEY)
@@ -5701,11 +5691,11 @@ function organizeFacts(factList)
 		{
 			var styles = facts[key] || {};
 			var styleList = entry.value;
-			while (styleList.length !== 0)
+			while (styleList !== 0)
 			{
-				var style = styleList[0];
-				styles[style[0]] = style[1];
-			    styleList.shift();
+				var style = styleList[1];
+				styles[style[1]] = style[2];
+			    styleList = styleList[2];
 			}
 			facts[key] = styles;
 		}
@@ -5717,13 +5707,13 @@ function organizeFacts(factList)
 		{
 			facts[key] = entry.value;
 		}
-	    factList.shift();
-	}
+	factList = factList[2];
+    }
 
-	return {
-		facts: facts,
-		namespace: namespace
-	};
+    return {
+	facts: facts,
+	namespace: namespace
+    };
 }
 
 
@@ -6556,7 +6546,7 @@ function redraw(domNode, vNode, eventNode)
 
 
 function programWithFlags(details)
-{
+    {
 	return {
 		init: details.init,
 		update: details.update,

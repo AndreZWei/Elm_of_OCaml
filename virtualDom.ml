@@ -78,5 +78,13 @@ type ('flags, 'model, 'msg) pgm = {
   }
 
 let programWithFlags pgm =
+  let obj =
+    Js.Unsafe.obj [|
+	("init", Js.Unsafe.inject pgm.init);
+	("update", Js.Unsafe.inject pgm.update);
+	("subscriptions", Js.Unsafe.inject pgm.subscriptions);
+	("view", Js.Unsafe.inject pgm.view)
+       |]
+  in
   callFun "_elm_lang$virtual_dom$Native_VirtualDom.programWithFlags"
-	  pgm
+	  obj

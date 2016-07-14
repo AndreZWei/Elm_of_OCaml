@@ -33,7 +33,7 @@ module Cmd = struct
 	      list
 
     let none =
-      batch []
+      batch [||]
 
   end
 
@@ -50,6 +50,6 @@ module Sub = struct
 	      list
 
     let none =
-      batch []
+      batch [||]
 
   end
