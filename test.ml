@@ -2,10 +2,15 @@ open Html
 open Wrapper
 open Html.App
 open Html.Events
+<<<<<<< HEAD
 open Html.Attributes
 open Svg.Attributes
 open Svg
 
+=======
+open Svg
+open Html.App
+>>>>>>> 5ee05bdcecf4fbd01dc24e87c04716559e7c2148
   
 type msg = Increment | Decrement | ChangeModel of string
   
@@ -17,10 +22,17 @@ let update msg model =
   match msg with 
   | Increment -> model + 1
   | Decrement -> model - 1
+<<<<<<< HEAD
   | ChangeModel number -> (int_of_string number)
 
 let changemodel number = ChangeModel number
 
+=======
+  | ChangeModel number -> int_of_string number
+  
+let changemodel number = ChangeModel number
+  
+>>>>>>> 5ee05bdcecf4fbd01dc24e87c04716559e7c2148
 let view model =   
   div []
     [ button [ onClick Decrement ] [ text "-" ]
