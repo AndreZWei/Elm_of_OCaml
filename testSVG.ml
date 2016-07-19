@@ -15,9 +15,9 @@ let model = ()
 let update msg model = ()
 
 let view model =   
-  createSvg [ x "0"; y "0"; viewBox "0 0 323.141 322.95" ]
+  createSvg [ x "0"; y "0"; viewBox "0 0 1000 1000" ]
     [ rect
-        [ fill "#7FD13B"; x "200.0"; y "400.0"; width "300.0"; height "600.0"
+        [ fill "#7FD13B"; x "0"; y "0"; width "300.0"; height "600.0"
         ] []
     ]
  

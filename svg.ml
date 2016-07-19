@@ -557,25 +557,25 @@ let x2 name = attribute "x2" name
 
 let xChannelSelector name = attribute "xChannelSelector" name
 
-let xlinkActuate name = attribute "xlinkActuate" name
+let xlinkActuate name = attributeNS "http://www.w3.org/1999/xlink" "xlink:actuate" name
 
-let xlinkArcrole name = attribute "xlinkArcrole" name
+let xlinkArcrole name = attributeNS "http://www.w3.org/1999/xlink" "xlink:arcrole" name
 
-let xlinkHref name = attribute "xlinkHref" name
+let xlinkHref name = attributeNS "http://www.w3.org/1999/xlink" "xlink:href" name
 
-let xlinkRole name = attribute "xlinkRole" name
+let xlinkRole name = attributeNS "http://www.w3.org/1999/xlink" "xlink:role" name
 
-let xlinkShow name = attribute "xlinkShow" name
+let xlinkShow name = attributeNS "http://www.w3.org/1999/xlink" "xlink:show" name
 
-let xlinkTitle name = attribute "xlinkTitle" name
+let xlinkTitle name = attributeNS "http://www.w3.org/1999/xlink" "xlink:title" name
 
-let xlinkType name = attribute "xlinkType" name
+let xlinkType name = attributeNS "http://www.w3.org/1999/xlink" "xlink:type" name
 
-let xmlBase name = attribute "xmlBase" name
+let xmlBase name = attributeNS "http://www.w3.org/1999/namespace" "xml:base" name
 
-let xmlLang name = attribute "xmlLang" name
+let xmlLang name = attributeNS "http://www.w3.org/1999/namespace" "xml:lang" name
 
-let xmlSpace name = attribute "xmlSpace" name
+let xmlSpace name = attributeNS "http://www.w3.org/1999/namespace" "xml:space" name
 
 let y name = attribute "y" name
 
