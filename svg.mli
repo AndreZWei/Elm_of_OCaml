@@ -200,19 +200,15 @@ module Attributes: sig
 
 (* Regular Attributes *)
 
-val accentHeight: string -> 'msg attribute
+val accentHeight: float -> 'msg attribute
 
 val accelerate: string -> 'msg attribute
 
 val accumulate: string -> 'msg attribute
 
-val accentHeight: string -> 'msg attribute
-
 val additive: string -> 'msg attribute
 
 val alphabetic: string -> 'msg attribute
-
-val accentHeight: string -> 'msg attribute
 
 val allowReorder: string -> 'msg attribute
 	
@@ -244,7 +240,7 @@ val by: string -> 'msg attribute
 
 val calcMode: string -> 'msg attribute
 
-val capHeight: string -> 'msg attribute
+val capHeight: float -> 'msg attribute
 
 val class': string -> 'msg attribute
 
@@ -254,9 +250,9 @@ val contentScriptType: string -> 'msg attribute
 
 val contentStyleType: string -> 'msg attribute
 
-val cx: string -> 'msg attribute 
+val cx: float -> 'msg attribute 
 
-val cy: string -> 'msg attribute 
+val cy: float -> 'msg attribute 
 
 val d: string -> 'msg attribute
 
@@ -276,7 +272,7 @@ val dy: string -> 'msg attribute
 
 val edgeMode: string -> 'msg attribute
 
-val elevation: string -> 'msg attribute
+val elevation: float -> 'msg attribute
 
 val end': string -> 'msg attribute
 
@@ -292,9 +288,9 @@ val format: string -> 'msg attribute
 
 val from: string -> 'msg attribute
 
-val fx: string -> 'msg attribute 
+val fx: float -> 'msg attribute 
 
-val fy: string -> 'msg attribute 
+val fy: float -> 'msg attribute 
 
 val g1: string -> 'msg attribute 
 
@@ -310,13 +306,13 @@ val gradientUnits: string -> 'msg attribute
 
 val hanging: string -> 'msg attribute
 
-val height: string -> 'msg attribute
+val height: float -> 'msg attribute
 
-val horizAdvX: string -> 'msg attribute
+val horizAdvX: float -> 'msg attribute
 
-val horizOriginX: string -> 'msg attribute 
+val horizOriginX: float -> 'msg attribute 
 
-val horizOriginY: string -> 'msg attribute
+val horizOriginY: float -> 'msg attribute
 
 val id: string -> 'msg attribute 
 
@@ -338,7 +334,7 @@ val k3: string -> 'msg attribute
 
 val k4: string -> 'msg attribute 
 
-val kernelMatrix: string -> 'msg attribute 
+val kernelMatrix: float list -> 'msg attribute 
 
 val kernelUnitLength: string -> 'msg attribute
 
@@ -346,7 +342,7 @@ val keyPoints: string -> 'msg attribute
 
 val keySplines: string -> 'msg attribute 
 
-val keyTimes: string -> 'msg attribute
+val keyTimes: float list -> 'msg attribute
 
 val lang: string -> 'msg attribute
 
@@ -356,11 +352,11 @@ val limitingConeAngle: string -> 'msg attribute
 
 val local: string -> 'msg attribute 
 
-val markerHeight: string -> 'msg attribute
+val markerHeight: float -> 'msg attribute
 
 val markerUnits: string -> 'msg attribute
 
-val markerWidth: string -> 'msg attribute 
+val markerWidth: float -> 'msg attribute 
 
 val maskContentUnits: string -> 'msg attribute 
 
@@ -368,21 +364,21 @@ val maskUnits: string -> 'msg attribute
 
 val mathematical: string -> 'msg attribute 
 
-val max: string -> 'msg attribute
+val max: float -> 'msg attribute
 
 val media: string -> 'msg attribute
 
 val method': string -> 'msg attribute
 
-val min: string -> 'msg attribute
+val min: float -> 'msg attribute
 
 val mode: string -> 'msg attribute 
 
 val name: string -> 'msg attribute
 
-val numOctaves: string -> 'msg attribute
+val numOctaves: int -> 'msg attribute
 
-val offset: string -> 'msg attribute 
+val offset: float -> 'msg attribute 
 
 val operator: string -> 'msg attribute
 
@@ -394,15 +390,15 @@ val orientation: string -> 'msg attribute
 
 val origin: string -> 'msg attribute 
 
-val overlinePosition: string -> 'msg attribute
+val overlinePosition: float -> 'msg attribute
 
-val overlineThickness: string -> 'msg attribute
+val overlineThickness: float -> 'msg attribute
 
 val panose1: string -> 'msg attribute
 
 val path: string -> 'msg attribute
 
-val pathLength: string -> 'msg attribute
+val pathLength: float -> 'msg attribute
 
 val patternContentUnits: string -> 'msg attribute
 
@@ -412,13 +408,13 @@ val patternUnits: string -> 'msg attribute
 
 val pointOrder: string -> 'msg attribute
 
-val points: string -> 'msg attribute
+val points: (float * float) list -> 'msg attribute
 
-val pointsAtX: string -> 'msg attribute
+val pointsAtX: float -> 'msg attribute
 
-val pointsAtY: string -> 'msg attribute
+val pointsAtY: float -> 'msg attribute
 
-val pointsAtZ: string -> 'msg attribute
+val pointsAtZ: float -> 'msg attribute
 
 val preserveAlpha: string -> 'msg attribute
 
@@ -426,7 +422,7 @@ val preserveAspectRatio: string -> 'msg attribute
 
 val primitiveUnits: string -> 'msg attribute
 
-val r: string -> 'msg attribute
+val r: float -> 'msg attribute
 
 val radius: string -> 'msg attribute
 
@@ -450,9 +446,9 @@ val result: string -> 'msg attribute
 
 val rotate: string -> 'msg attribute
 
-val rx: string -> 'msg attribute 
+val rx: float -> 'msg attribute 
 
-val ry: string -> 'msg attribute 
+val ry: float -> 'msg attribute 
 
 val scale: string -> 'msg attribute
 
@@ -496,11 +492,11 @@ val tableValues: string -> 'msg attribute
 
 val target: string -> 'msg attribute
 
-val targetX: string -> 'msg attribute
+val targetX: float -> 'msg attribute
 
-val targetY: string -> 'msg attribute
+val targetY: float -> 'msg attribute
 
-val textLength: string -> 'msg attribute
+val textLength: float -> 'msg attribute
 
 val title: string -> 'msg attribute
 
@@ -508,15 +504,17 @@ val to': string -> 'msg attribute
 
 val transform: string -> 'msg attribute
 
+val translate: float -> 'msg attribute
+
 val type': string -> 'msg attribute
 
 val u1: string -> 'msg attribute 
 
 val u2: string -> 'msg attribute 
 
-val underlinePosition: string -> 'msg attribute
+val underlinePosition: float -> 'msg attribute
 
-val underlineThickness: string -> 'msg attribute
+val underlineThickness: float -> 'msg attribute
 
 val unicode: string -> 'msg attribute
 
@@ -542,21 +540,21 @@ val vertOriginX: string -> 'msg attribute
 
 val vertOriginY: string -> 'msg attribute
 
-val viewBox: string -> 'msg attribute
+val viewBox: float list -> 'msg attribute
 
 val viewTarget: string -> 'msg attribute
 
-val width: string -> 'msg attribute
+val width: float -> 'msg attribute
 
 val widths: string -> 'msg attribute
 
-val x: string -> 'msg attribute
+val x: float -> 'msg attribute
 
-val xHeight: string -> 'msg attribute
+val xHeight: float -> 'msg attribute
 
-val x1: string -> 'msg attribute 
+val x1: float -> 'msg attribute 
 
-val x2: string -> 'msg attribute 
+val x2: float -> 'msg attribute 
 
 val xChannelSelector: string -> 'msg attribute
 
@@ -580,15 +578,15 @@ val xmlLang: string -> 'msg attribute
 
 val xmlSpace: string -> 'msg attribute
 
-val y: string -> 'msg attribute
+val y: float -> 'msg attribute
 
-val y1: string -> 'msg attribute 
+val y1: float -> 'msg attribute 
 
-val y2: string -> 'msg attribute 
+val y2: float -> 'msg attribute 
 
 val yChannelSelector: string -> 'msg attribute
 
-val z: string -> 'msg attribute
+val z: float -> 'msg attribute
 
 val zoomAndPan: string -> 'msg attribute
 
