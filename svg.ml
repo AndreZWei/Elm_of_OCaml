@@ -1,10 +1,8 @@
-open VirtualDom
 open Decode
 open Encode
 open Platform
 open Platform.Cmd
 open Platform.Sub
-open Html
 
 (* SVG Nodes *)
 
@@ -13,9 +11,9 @@ type 'msg svg = 'msg VirtualDom.node
 type 'msg attribute = 'msg VirtualDom.property 
 
 let node name attributes children = 
-	let svgNamespace = VirtualDom.property "namespace" (Encode.jsstring "http://www.w3.org/2000/svg")
-	in
-	VirtualDom.node name (svgNamespace::attributes) children
+  let svgNamespace = VirtualDom.property "namespace" (Encode.jsstring "http://www.w3.org/2000/svg")
+  in
+  VirtualDom.node name (svgNamespace::attributes) children
 
 let text = VirtualDom.text
 
@@ -199,7 +197,8 @@ let view attributes children = node "view" attributes children
 
 
 module Attributes = struct
-	
+
+    open VirtualDom
 (* Regular Attributes *)
 
 let accentHeight name = attribute "accentHeight" name
@@ -719,9 +718,9 @@ module Events = struct
 
 (* Custom Events *)
 
-let simpleOn name = (fun msg -> on name (succeed msg))
-
 let on name decoder = VirtualDom.on name decoder
+    
+let simpleOn name = (fun msg -> on name (succeed msg))
 
 (* Animation *)
 

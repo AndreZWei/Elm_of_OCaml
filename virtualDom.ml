@@ -13,7 +13,7 @@ let text text =
 	  
 let node tag property children =
   callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.node"
-	   tag property children
+	   (Js.string tag) property children
 
 let map f node =
   callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.map"
@@ -22,15 +22,15 @@ let map f node =
 (* properties and attributes *)
 let property key value =
   callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.property"
-	  key value	  
+	  (Js.string key) value	  
 	  
 let attribute key value =
   callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.attribute"
-	  key value
+	  (Js.string key) value
 	  
 let attributeNS namespace key value =
   callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.attributeNS"
-	  namespace key value
+	  (Js.string namespace) (Js.string key) value
 
 let style styleList =
   callFun "_elm_lang$virtual_dom$Native_VirtualDom.style"

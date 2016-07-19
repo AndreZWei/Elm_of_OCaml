@@ -3082,7 +3082,7 @@ function sendToApp(router, msg)
 
 function sendToSelf(router, msg)
 {
-	return A2(_elm_lang$core$Native_Scheduler.send, router.self, {
+    return A2(_elm_lang$core$Native_Scheduler.send, router.self, {
 		ctor: 'self',
 		_0: msg
 	});
@@ -5674,6 +5674,7 @@ function lazy3(fn, a, b, c)
 
 function organizeFacts(factList)
 {
+    console.log(factList);
     var namespace, facts = {};
 
     while (factList !== 0)
@@ -5695,12 +5696,12 @@ function organizeFacts(factList)
 			{
 				var style = styleList[1];
 				styles[style[1]] = style[2];
-			    styleList = styleList[2];
+			        styleList = styleList[2];
 			}
 			facts[key] = styles;
 		}
 		else if (key === 'namespace')
-		{
+	        {
 			namespace = entry.value;
 		}
 		else
@@ -5741,24 +5742,28 @@ function property(key, value)
 
 function attribute(key, value)
 {
-	return {
+	var aaa= {
 		key: ATTR_KEY,
 		realKey: key,
 		value: value
 	};
+    console.log(aaa);
+    return aaa;
 }
 
 
 function attributeNS(namespace, key, value)
 {
-	return {
+
+    var aaa = {
 		key: ATTR_NS_KEY,
 		realKey: key,
 		value: {
 			value: value,
 			namespace: namespace
 		}
-	};
+    };
+    return aaa;
 }
 
 
