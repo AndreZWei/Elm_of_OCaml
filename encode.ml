@@ -1,6 +1,6 @@
 open Utils
 
-type value = Value
+type value = Value (*| String of Js.js_string Js.t*)
        
 let encode indent value =
   callFun2 "_elm_lang$core$Native_Json.encode"
@@ -10,8 +10,8 @@ let identity value =
   callFun "_elm_lang$core$Native_Json.identity"
 	  value
 
-let jsstring = identity
-
+let jsstring = identity (* string = String (Js.string string)*)
+		 
 let jsbool = identity
 
 let jsint = identity
@@ -30,5 +30,5 @@ let jsarray a =
 	let arg = toList pair 
 	in 
 	callFun "_elm_lang$core$Native_Json.encodeObject" arg*)
-
+		  
 
