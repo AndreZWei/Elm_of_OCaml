@@ -7,19 +7,19 @@ open Svg.Attributes
 open Svg
 
   
-type msg = Increment | Decrement | ChangeModel of string
+type msg = Increment | Decrement | ChangeModel of Js.js_string Js.t
   
 type model = int 
   
 let model = 2
   
 let update msg model = 
-  match msg with 
+  match msg with
+  | ChangeModel number -> int_of_string (Js.to_string number)
   | Increment -> model + 1
   | Decrement -> model - 1
-  | ChangeModel number -> int_of_string number
 
-let changeModel number = ChangeModel number
+let changeModel number = ChangeModel (Js.string number)
 
 let view model =   
   div [ className "body" ]

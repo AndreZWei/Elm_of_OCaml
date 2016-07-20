@@ -59,7 +59,7 @@ let jsontuple3 f decoder1 decoder2 decoder3 =
  *)
 let decodeField s decoder = 
   callFun2 "_elm_lang$core$Native_Json.decodeField"
-	   s decoder
+	   (Js.string s) decoder
 
 let at fields decoder = 
   List.fold_right decodeField fields decoder

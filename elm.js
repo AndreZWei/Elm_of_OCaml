@@ -2613,13 +2613,13 @@ function spawn(task)
 }
 
 function rawSend(process, msg)
-{
+    {
 	process.mailbox.push(msg);
 	enqueue(process);
 }
 
 function send(process, msg)
-{
+    {
 	return nativeBinding(function(callback) {
 		rawSend(process, msg);
 		callback(succeed(_elm_lang$core$Native_Utils.Tuple0));
@@ -2656,7 +2656,8 @@ function sleep(time)
 // STEP PROCESSES
 
 function step(numSteps, process)
-{
+    {
+	
 	while (numSteps < MAX_STEPS)
 	{
 		var ctor = process.root.ctor;
@@ -2728,7 +2729,7 @@ function step(numSteps, process)
 		}
 
 		if (ctor === '_Task_receive')
-		{
+	    {
 			var mailbox = process.mailbox;
 			if (mailbox.length === 0)
 			{
@@ -2984,6 +2985,7 @@ function makeEmbedHelp(moduleName, program, rootDomNode, flags)
 	function onMessage(msg, model)
 	{
 	    return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+		console.log(msg);
 		var results = update(msg, model);
 			model = results[1];
 			renderer.update(view(model));
@@ -5141,7 +5143,8 @@ function run(decoder, value)
 }
 
 function runHelp(decoder, value)
-{
+    {
+	console.log(decoder);
 	switch (decoder.tag)
 	{
 		case 'bool':
@@ -5259,7 +5262,7 @@ function runHelp(decoder, value)
 			return ok(keyValuePairs);
 
 		case 'map-many':
-			var answer = decoder.func;
+	    var answer = decoder.func;
 			var decoders = decoder.decoders;
 			for (var i = 0; i < decoders.length; i++)
 			{
@@ -5268,7 +5271,7 @@ function runHelp(decoder, value)
 				{
 					return result;
 				}
-				answer = answer(result.value);
+			    answer = answer(result.value);
 			}
 			return ok(answer);
 
@@ -5801,7 +5804,7 @@ function equalEvents(a, b)
 
 
 function renderer(parent, tagger, initialVirtualNode)
-{
+    {
     var eventNode = { tagger: tagger, parent: null };
     
     var domNode = render(initialVirtualNode, eventNode);
@@ -5885,7 +5888,7 @@ function render(vNode, eventNode)
 
 				subNode = subNode.node;
 			}
-            
+
 			var subEventRoot = {
 				tagger: tagger,
 				parent: eventNode
@@ -6005,10 +6008,9 @@ function makeEventHandler(eventNode, info)
 {
 	function eventHandler(event)
     {
-		var info = eventHandler.info;
-	
-		var value = A2(_elm_lang$core$Native_Json.run, info.decoder, event);
+	var info = eventHandler.info;
 
+		var value = A2(_elm_lang$core$Native_Json.run, info.decoder, event);
 		if (value.ctor === 'Ok')
 		{
 			var options = info.options;
