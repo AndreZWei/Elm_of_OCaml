@@ -5074,7 +5074,7 @@ function badToString(problem)
 	{
 		switch (problem.tag)
 		{
-			case 'primitive':
+		        case 'primitive':
 				return 'Expecting ' + problem.type
 					+ (context === '_' ? '' : ' at ' + context)
 					+ ' but instead got: ' + jsToString(problem.value);
@@ -5133,7 +5133,8 @@ function runOnString(decoder, string)
 
 function run(decoder, value)
 {
-	var result = runHelp(decoder, value);
+    var result = runHelp(decoder, value);
+
 	return (result.tag === 'ok')
 		? _elm_lang$core$Result$Ok(result.value)
 		: _elm_lang$core$Result$Err(badToString(result));
@@ -5974,8 +5975,7 @@ function applyStyles(domNode, styles)
 
 function applyEvents(domNode, eventNode, events)
 {
-	var allHandlers = domNode.elm_handlers || {};
-
+    var allHandlers = domNode.elm_handlers || {};
 	for (var key in events)
 	{
 		var handler = allHandlers[key];
@@ -6004,9 +6004,9 @@ function applyEvents(domNode, eventNode, events)
 function makeEventHandler(eventNode, info)
 {
 	function eventHandler(event)
-	{
+    {
 		var info = eventHandler.info;
-
+	
 		var value = A2(_elm_lang$core$Native_Json.run, info.decoder, event);
 
 		if (value.ctor === 'Ok')

@@ -6,11 +6,11 @@ type value = Encode.value
 
 let decodePrimitive tag =
   callFun "_elm_lang$core$Native_Json.decodePrimitive"
-	  tag
+	  (Js.string tag)
 
 let decodeString decoder s = 
   callFun2 "_elm_lang$core$Native_Json.runOnString"
-	  decoder s	 
+	  decoder (Js.string s)	 
 
 let decodeValue decoder v = 
   callFun2 "_elm_lang$core$Native_Json.run"
@@ -62,7 +62,7 @@ let decodeField s decoder =
 	   s decoder
 
 let at fields decoder = 
-  List.fold_left decodeField decoder fields 
+  List.fold_right decodeField fields decoder
 
 let andThen decoder f =
   callFun2 "_elm_lang$core$Native_Json.andThen"
