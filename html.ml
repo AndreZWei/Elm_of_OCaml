@@ -13,124 +13,124 @@ type 'msg attribute = 'msg VirtualDom.property
 
 
 
-(* Cust x yom (Nodes *)
+(* Custom Nodes *)
 
 let text s = VirtualDom.text s  
 
-let node s l1 l2 = VirtualDom.node s l1 l2 
+let node s property children = VirtualDom.node s property children 
 
 
 (* Headers *)
 
-let h1 x y = (node "h1" x y)
+let h1 property children = (node "h1" property children)
 
-let h2 x y = (node "h2" x y)
+let h2 property children = (node "h2" property children)
 
-let h3 x y = (node "h3" x y)
+let h3 property children = (node "h3" property children)
 
-let h4 x y = (node "h4" x y)
+let h4 property children = (node "h4" property children)
 
-let h5 x y = (node "h5" x y)
+let h5 property children = (node "h5" property children)
 
-let h6 x y = (node "h6" x y)
+let h6 property children = (node "h6" property children)
 
 
 (* Grouping Contents *)
 
-let div x y = (node "div" x y)
+let div property children = (node "div" property children)
 
-let p x y = (node "p" x y)
+let p property children = (node "p" property children)
 
-let hr x y = (node "hr" x y)
+let hr property children = (node "hr" property children)
 
-let pre x y = (node "pre" x y)
+let pre property children = (node "pre" property children)
 
-let blockquote x y = (node "blockquote" x y)
+let blockquote property children = (node "blockquote" property children)
 
 
 (* Text *)
 
-let span x y = (node "span" x y)
+let span property children = (node "span" property children)
 
-let a x y = (node "a" x y)
+let a property children = (node "a" property children)
 
-let code x y = (node "code" x y)
+let code property children = (node "code" property children)
 
-let em x y = (node "em" x y)
+let em property children = (node "em" property children)
 
-let strong x y = (node "strong" x y)
+let strong property children = (node "strong" property children)
 
-let i x y = (node "i" x y)
+let i property children = (node "i" property children)
 
-let b x y = (node "b" x y)
+let b property children = (node "b" property children)
 
-let u x y = (node "u" x y)
+let u property children = (node "u" property children)
 
-let sub x y = (node "sub" x y)
+let sub property children = (node "sub" property children)
 
-let sup x y = (node "sup" x y)
+let sup property children = (node "sup" property children)
 
-let br x y = (node "br" x y)
+let br property children = (node "br" property children)
 
 (* Lists *)
 
-let ol x y = (node "ol" x y)
+let ol property children = (node "ol" property children)
 
-let ul x y = (node "ul" x y)
+let ul property children = (node "ul" property children)
 
-let li x y = (node "li" x y)
+let li property children = (node "li" property children)
 
-let dl x y = (node "dl" x y)
+let dl property children = (node "dl" property children)
 
-let dt x y = (node "dt" x y)
+let dt property children = (node "dt" property children)
 
-let dd x y = (node "dd" x y)
+let dd property children = (node "dd" property children)
 
 (* Embdded Content *)
 
-let img x y = (node "img" x y)
+let img property children = (node "img" property children)
 
-let iframe x y = (node "iframe" x y)
+let iframe property children = (node "iframe" property children)
 
-let canvas x y = (node "canvas" x y)
+let canvas property children = (node "canvas" property children)
 
-let svg x y = (node "svg" x y)
+let svg property children = (node "svg" property children)
 
-let math x y = (node "math" x y)
+let math property children = (node "math" property children)
 
 (* Inputs *)
 
-let form x y = (node "form" x y)
+let form property children = (node "form" property children)
 
-let input x y = (node "input" x y)
+let input property children = (node "input" property children)
 
-let textarea x y = (node "textarea" x y)
+let textarea property children = (node "textarea" property children)
 
-let button x y = (node "button" x y)
+let button property children = (node "button" property children)
 
-let select x y = (node "select" x y)
+let select property children = (node "select" property children)
 
-let option x y = (node "option" x y)
+let option property children = (node "option" property children)
 
 (* Sections *)
 
-let section x y = (node "section" x y)
+let section property children = (node "section" property children)
 
-let nav x y = (node "nav" x y)
+let nav property children = (node "nav" property children)
 
-let article x y = (node "article" x y)
+let article property children = (node "article" property children)
 
-let aside x y = (node "aside" x y)
+let aside property children = (node "aside" property children)
 
-let header x y = (node "header" x y)
+let header property children = (node "header" property children)
 
-let footer x y = (node "footer" x y)
+let footer property children = (node "footer" property children)
 
-let address x y = (node "address" x y)
+let address property children = (node "address" property children)
 
-let main' x y = (node "main" x y)
+let main' property children = (node "main" property children)
 
-let body x y = (node "body" x y)
+let body property children = (node "body" property children)
 
 
 (* Html App *)
