@@ -199,9 +199,18 @@ let view attributes children = node "view" attributes children
 module Attributes = struct
 
     open VirtualDom
+
+(* Helper function for float conversion *)
+
+let (sf : float -> string) number = 
+	match number = (floor number) with 
+	| true -> string_of_int (int_of_float number)
+	| false -> string_of_float number
+
+
 (* Regular Attributes *)
 
-let accentHeight name = attribute "accentHeight" name
+let accentHeight name = attribute "accentHeight" (sf name)
 
 let accelerate name = attribute "accelerate" name
 
@@ -215,9 +224,9 @@ let allowReorder name = attribute "allowReorder" name
 
 let amplitude name = attribute "amplitude" name
 
-let arabicForm name = attribute " arabicForm" name
+let arabicForm name = attribute "arabicForm" name
 
-let ascent name = attribute " ascent" name
+let ascent name = attribute "ascent" name
 
 let attributeName name = attribute "attributeName" name
 
@@ -241,7 +250,7 @@ let by name = attribute "by" name
 
 let calcMode name = attribute "calcMode" name
 
-let capHeight name = attribute "capHeight" name
+let capHeight name = attribute "capHeight" (sf name)
 
 let class' name = attribute "class" name
 
@@ -251,9 +260,9 @@ let contentScriptType name = attribute "contentScriptType" name
 
 let contentStyleType name = attribute "contentStyleType" name
 
-let cx name = attribute "cx" name
+let cx name = attribute "cx" (sf name)
 
-let cy name = attribute "cy" name
+let cy name = attribute "cy" (sf name)
 
 let d name = attribute "d" name
 
@@ -273,7 +282,7 @@ let dy name = attribute "dy" name
 
 let edgeMode name = attribute "edgeMode" name
 
-let elevation name = attribute "elevation" name
+let elevation name = attribute "elevation" (sf name)
 
 let end' name = attribute "end" name
 
@@ -289,9 +298,9 @@ let format name = attribute "format" name
 
 let from name = attribute "from" name
 
-let fx name = attribute "fx" name
+let fx name = attribute "fx" (sf name)
 
-let fy name = attribute "fy" name
+let fy name = attribute "fy" (sf name)
 
 let g1 name = attribute "g1" name
 
@@ -307,13 +316,13 @@ let gradientUnits name = attribute "gradientUnits" name
 
 let hanging name = attribute "hanging" name
 
-let height name = attribute "height" name
+let height name = attribute "height" (sf name)
 
-let horizAdvX name = attribute "horizAdvX" name
+let horizAdvX name = attribute "horizAdvX" (sf name)
 
-let horizOriginX name = attribute "horizOriginX" name
+let horizOriginX name = attribute "horizOriginX" (sf name)
 
-let horizOriginY name = attribute "horizOriginY" name
+let horizOriginY name = attribute "horizOriginY" (sf name)
 
 let id name = attribute "id" name
 
@@ -335,7 +344,7 @@ let k3 name = attribute "k3" name
 
 let k4 name = attribute "k4" name
 
-let kernelMatrix name = attribute "kernelMatrix" name
+let kernelMatrix name = attribute "kernelMatrix" (String.concat " " (List.map sf name))
 
 let kernelUnitLength name = attribute "kernelUnitLength" name
 
@@ -343,7 +352,7 @@ let keyPoints name = attribute "keyPoints" name
 
 let keySplines name = attribute "keySplines" name
 
-let keyTimes name = attribute "keyTimes" name
+let keyTimes name = attribute "keyTimes" (String.concat ";" (List.map sf name))
 
 let lang name = attribute "lang" name
 
@@ -353,11 +362,11 @@ let limitingConeAngle name = attribute "limitingConeAngle" name
 
 let local name = attribute "local" name
 
-let markerHeight name = attribute "markerHeight" name
+let markerHeight name = attribute "markerHeight" (sf name)
 
 let markerUnits name = attribute "markerUnits" name
 
-let markerWidth name = attribute "markerWidth" name
+let markerWidth name = attribute "markerWidth" (sf name)
 
 let maskContentUnits name = attribute "maskContentUnits" name
 
@@ -365,21 +374,21 @@ let maskUnits name = attribute "maskUnits" name
 
 let mathematical name = attribute "mathematical" name
 
-let max name = attribute "max" name
+let max name = attribute "max" (sf name)
 
 let media name = attribute "media" name
 
 let method' name = attribute "method" name
 
-let min name = attribute "min" name
+let min name = attribute "min" (sf name)
 
 let mode name = attribute "mode" name
 
 let name name = attribute "name" name
 
-let numOctaves name = attribute "numOctaves" name
+let numOctaves name = attribute "numOctaves" (string_of_int name)
 
-let offset name = attribute "offset" name
+let offset name = attribute "offset" (sf name)
 
 let operator name = attribute "operator" name
 
@@ -391,15 +400,15 @@ let orientation name = attribute "orientation" name
 
 let origin name = attribute "origin" name
 
-let overlinePosition name = attribute "overlinePosition" name
+let overlinePosition name = attribute "overlinePosition" (sf name)
 
-let overlineThickness name = attribute "overlineThickness" name
+let overlineThickness name = attribute "overlineThickness" (sf name)
 
 let panose1 name = attribute "panose1" name
 
 let path name = attribute "path" name
 
-let pathLength name = attribute "pathLength" name
+let pathLength name = attribute "pathLength" (sf name)
 
 let patternContentUnits name = attribute "patternContentUnits" name
 
@@ -409,13 +418,16 @@ let patternUnits name = attribute "patternUnits" name
 
 let pointOrder name = attribute "pointOrder" name
 
-let points name = attribute "points" name
+let points name = 
+	let sfpair pair = String.concat "," [sf (fst pair); sf (snd pair)]
+	in
+	attribute "points" (String.concat " " (List.map sfpair name)) 
 
-let pointsAtX name = attribute "pointsAtX" name
+let pointsAtX name = attribute "pointsAtX" (sf name)
 
-let pointsAtY name = attribute "pointsAtY" name
+let pointsAtY name = attribute "pointsAtY" (sf name)
 
-let pointsAtZ name = attribute "pointsAtZ" name
+let pointsAtZ name = attribute "pointsAtZ" (sf name)
 
 let preserveAlpha name = attribute "preserveAlpha" name
 
@@ -423,7 +435,7 @@ let preserveAspectRatio name = attribute "preserveAspectRatio" name
 
 let primitiveUnits name = attribute "primitiveUnits" name
 
-let r name = attribute "r" name
+let r name = attribute "r" (sf name)
 
 let radius name = attribute "radius" name
 
@@ -447,9 +459,9 @@ let result name = attribute "result" name
 
 let rotate name = attribute "rotate" name
 
-let rx name = attribute "rx" name
+let rx name = attribute "rx" (sf name)
 
-let ry name = attribute "ry" name
+let ry name = attribute "ry" (sf name)
 
 let scale name = attribute "scale" name
 
@@ -493,11 +505,11 @@ let tableValues name = attribute "tableValues" name
 
 let target name = attribute "target" name
 
-let targetX name = attribute "targetX" name
+let targetX name = attribute "targetX" (sf name)
 
-let targetY name = attribute "targetY" name
+let targetY name = attribute "targetY" (sf name)
 
-let textLength name = attribute "textLength" name
+let textLength name = attribute "textLength" (sf name)
 
 let title name = attribute "title" name
 
@@ -505,15 +517,17 @@ let to' name = attribute "to" name
 
 let transform name = attribute "transform" name
 
+let translate name = attribute "translate" (sf name)
+
 let type' name = attribute "type'" name
 
 let u1 name = attribute "u1" name
 
 let u2 name = attribute "u2" name
 
-let underlinePosition name = attribute "underlinePosition" name
+let underlinePosition name = attribute "underlinePosition" (sf name)
 
-let underlineThickness name = attribute "underlineThickness" name
+let underlineThickness name = attribute "underlineThickness" (sf name)
 
 let unicode name = attribute "unicode" name
 
@@ -539,53 +553,53 @@ let vertOriginX name = attribute "vertOriginX" name
 
 let vertOriginY name = attribute "vertOriginY" name
 
-let viewBox name = attribute "viewBox" name
+let viewBox name = attribute "viewBox" (String.concat " " (List.map sf name))
 
 let viewTarget name = attribute "viewTarget" name
 
-let width name = attribute "width" name
+let width name = attribute "width" (sf name)
 
 let widths name = attribute "widths" name
 
-let x name = attribute "x" name
+let x name = attribute "x" (sf name)
 
-let xHeight name = attribute "xHeight" name
+let xHeight name = attribute "xHeight" (sf name)
 
-let x1 name = attribute "x1" name
+let x1 name = attribute "x1" (sf name)
 
-let x2 name = attribute "x2" name
+let x2 name = attribute "x2" (sf name)
 
 let xChannelSelector name = attribute "xChannelSelector" name
 
-let xlinkActuate name = attribute "xlinkActuate" name
+let xlinkActuate name = attributeNS "http://www.w3.org/1999/xlink" "xlink:actuate" name
 
-let xlinkArcrole name = attribute "xlinkArcrole" name
+let xlinkArcrole name = attributeNS "http://www.w3.org/1999/xlink" "xlink:arcrole" name
 
-let xlinkHref name = attribute "xlinkHref" name
+let xlinkHref name = attributeNS "http://www.w3.org/1999/xlink" "xlink:href" name
 
-let xlinkRole name = attribute "xlinkRole" name
+let xlinkRole name = attributeNS "http://www.w3.org/1999/xlink" "xlink:role" name
 
-let xlinkShow name = attribute "xlinkShow" name
+let xlinkShow name = attributeNS "http://www.w3.org/1999/xlink" "xlink:show" name
 
-let xlinkTitle name = attribute "xlinkTitle" name
+let xlinkTitle name = attributeNS "http://www.w3.org/1999/xlink" "xlink:title" name
 
-let xlinkType name = attribute "xlinkType" name
+let xlinkType name = attributeNS "http://www.w3.org/1999/xlink" "xlink:type" name
 
-let xmlBase name = attribute "xmlBase" name
+let xmlBase name = attributeNS "http://www.w3.org/1999/namespace" "xml:base" name
 
-let xmlLang name = attribute "xmlLang" name
+let xmlLang name = attributeNS "http://www.w3.org/1999/namespace" "xml:lang" name
 
-let xmlSpace name = attribute "xmlSpace" name
+let xmlSpace name = attributeNS "http://www.w3.org/1999/namespace" "xml:space" name
 
-let y name = attribute "y" name
+let y name = attribute "y" (sf name)
 
-let y1 name = attribute "y1" name
+let y1 name = attribute "y1" (sf name)
 
-let y2 name = attribute "y2" name
+let y2 name = attribute "y2" (sf name)
 
 let yChannelSelector name = attribute "yChannelSelector" name
 
-let z name = attribute "z" name
+let z name = attribute "z" (sf name)
 
 let zoomAndPan name = attribute "zoomAndPan" name
 

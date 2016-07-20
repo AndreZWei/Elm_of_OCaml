@@ -26,12 +26,11 @@ let property key value =
 	   
 let attribute key value =
   callFun2 "_elm_lang$virtual_dom$Native_VirtualDom.attribute"
-	   (Js.string key) (Js.string value)
 	  
 let attributeNS namespace key value =
   callFun3 "_elm_lang$virtual_dom$Native_VirtualDom.attributeNS"
 	   (Js.string namespace) (Js.string key) (Js.string value)
-	   
+
 let style styleList =
   callFun "_elm_lang$virtual_dom$Native_VirtualDom.style"
 	  styleList
