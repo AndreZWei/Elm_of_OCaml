@@ -2985,7 +2985,6 @@ function makeEmbedHelp(moduleName, program, rootDomNode, flags)
 	function onMessage(msg, model)
 	{
 	    return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-		console.log(msg);
 		var results = update(msg, model);
 			model = results[1];
 			renderer.update(view(model));
@@ -5144,7 +5143,6 @@ function run(decoder, value)
 
 function runHelp(decoder, value)
     {
-	console.log(decoder);
 	switch (decoder.tag)
 	{
 		case 'bool':
@@ -5708,7 +5706,7 @@ function organizeFacts(factList)
 		}
 		else if (key === 'namespace')
 	        {
-		    namespace = entry.value.toString();
+		    namespace = entry.value;
 		}
 		else
 		{

@@ -10,7 +10,7 @@ let identity value =
   callFun "_elm_lang$core$Native_Json.identity"
 	  value
 
-let jsstring = identity (* string = String (Js.string string)*)
+let jsstring string = Js.Unsafe.js_expr ("\'"^string^"\'")
 		 
 let jsbool = identity
 
