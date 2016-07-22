@@ -129,7 +129,7 @@ val footer: ('msg attribute) list -> ('msg html) list -> ('msg html)
 	
 val address: ('msg attribute) list -> ('msg html) list -> ('msg html)
 	
-val main': ('msg attribute) list -> ('msg html) list -> ('msg html)
+val mainpgm: ('msg attribute) list -> ('msg html) list -> ('msg html)
 	
 val body: ('msg attribute) list -> ('msg html) list -> ('msg html)
 
@@ -187,7 +187,7 @@ module Attributes: sig
 
 	(* Inputs *)
 
-	val type': string -> 'msg attribute
+	val inputType: string -> 'msg attribute
 
 	val value: string -> 'msg attribute
 
@@ -225,7 +225,7 @@ module Attributes: sig
 
 	val minlength: int -> 'msg attribute
 
-	val method': string -> 'msg attribute
+	val methodName: string -> 'msg attribute
 
 	val multiple: bool -> 'msg attribute
 
@@ -241,7 +241,7 @@ module Attributes: sig
 
 	val size: int -> 'msg attribute
 
-	val for': string -> 'msg attribute
+	val forID: string -> 'msg attribute
 
 	val form: string -> 'msg attribute
 

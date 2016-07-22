@@ -128,7 +128,7 @@ let footer property children = (node "footer" property children)
 
 let address property children = (node "address" property children)
 
-let main' property children = (node "main" property children)
+let mainpgm property children = (node "main" property children)
 
 let body property children = (node "body" property children)
 
@@ -378,7 +378,7 @@ let srcdoc value = stringProperty "srcdoc" value
 
 (* Defines the type of a `button`, `input`, `embed`, `object`, `script`,
 `source`, `style`, or `menu`.*)
-let type' value = stringProperty "type" value
+let inputType value = stringProperty "type" value
 
 (* Defines a default value which will be displayed in a `button`, `option`,
 `input`, `li`, `meter`, `progress`, or `param`. *)
@@ -455,7 +455,7 @@ let maxlength n = stringProperty "maxlength" (string_of_int n)
 
 (* Defines which HTTP method to use when submitting a `form`. Can be GET
 (default) or POST. *)
-let method' value = stringProperty "method" value
+let methodName value = stringProperty "method" value
 
 (* Indicates whether multiple values can be entered in an `input` of type
 email or file. Can also indicate that you can `select` many options. *)
@@ -488,7 +488,7 @@ let size n = stringProperty "size" (string_of_int n)
 
 (* The element ID described by this `label` or the element IDs that are used
 for an `output`. *)
-let for' value = stringProperty "htmlFor" value
+let forID value = stringProperty "htmlFor" value
 
 (* Indicates the element ID of the `form` that owns this particular `button`,
 `fieldset`, `input`, `keygen`, `label`, `meter`, `object`, `output`,
