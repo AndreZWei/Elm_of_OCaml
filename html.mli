@@ -450,7 +450,7 @@ module Events: sig
 
 	(* Custom Decoders *)
 
-	val targetValue: string Decode.decoder
+	val targetValue: Js.js_string Js.t Decode.decoder
 
 	val targetChecked: bool Decode.decoder
 

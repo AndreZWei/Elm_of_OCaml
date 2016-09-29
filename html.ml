@@ -706,8 +706,11 @@ let onMouseOut msg =
 	on "mouseout" (succeed msg)
 
 (* Form Helpers *)
-let onInput tagger = 
-	on "input" (Decode.map tagger targetValue)
+let onInput tagger =
+  let newtagger tag =
+    tagger (Js.to_string tag)
+  in
+  on "input" (Decode.map newtagger targetValue)
 
 let onCheck tagger = 
 	on "change" (Decode.map tagger targetChecked)

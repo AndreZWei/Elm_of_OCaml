@@ -75,4 +75,3 @@ let fail s =
 let succeed obj = 
   callFun "_elm_lang$core$Native_Json.succeed"
 	  obj
-

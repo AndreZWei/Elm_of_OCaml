@@ -8,7 +8,7 @@ val decodeValue: 'a decoder -> value -> 'a
 
 val map: ('a -> 'b) -> 'a decoder -> 'b decoder
 
-val jsonstring : string decoder
+val jsonstring : Js.js_string Js.t decoder
 
 val jsonint: int decoder
 

@@ -7,7 +7,7 @@ open Platform.Sub
 
 type 'msg node
 	  
-type 'msg property
+type 'msg property 
 	  
 val node : string -> 'msg property list -> 'msg node list -> 'msg node
 								  
